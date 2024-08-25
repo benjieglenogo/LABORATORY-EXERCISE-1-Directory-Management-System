@@ -5,51 +5,13 @@
 #include <direct.h>
 #include <windows.h>
 
-
-    void DFiles(){
-        system("dir");  // windows command ni!!
-        system("pause");  // mag pause ang screen kadali!!!
-    }
-
-void CRDirectory(){
-    std::cout << "\nEnter the directory name: ";
-    std::string dirName;
-    std::cin >> dirName;
+void listFiles (const string&path) {
+  cout << "Listing files in Directory" << path << endl;
+  WIN32_FIND_DATA findFileData;
+  HANDLE hFind=FindFirstFile((path+"/*").c_str(),findFindData);
+  if(hFind==INVALID_HANDLE_VALUE){
+       cout <<"Error could not open directory"<< endl;
+       return;
+     }
+     
     
-if (_mkdir(dirName.c_str()) == 0) {
-        std::cout << "\nDirectory '" << dirName << "' Successfully Created\n";
-    } else {
-        std::cout << "\nFailed to Create Directory '" << dirName << "'\n";
-    }
-
-    system("pause");
-
-    void changeDirectory() {
-    char currentDir[FILENAME_MAX];
-    _getcwd(currentDir, sizeof(currentDir));
-    std::cout << "\nCurrent Directory: " << currentDir << '\n';
-
-    std::cout << "1. Step by Step Backward\n";
-    std::cout << "2. Goto Root Directory\n";
-    std::cout << "3. Forward Directory\n";
-    std::cout << "Enter the Number: ";
-    int choice;
-    std::cin >> choice;
-
-    if (choice == 1) {
-        _chdir("..");
-    } else if (choice == 2) {
-        _chdir("\\");
-    } else if (choice == 3) {
-        std::cout << "Please enter the Directory Name: ";
-        std::string dirName;
-        std::cin >> dirName;
-        _chdir(dirName.c_str());
-    }
-
-    _getcwd(currentDir, sizeof(currentDir));
-    std::cout << "Current Directory: " << currentDir << '\n';
-    system("pause");
-}
-}
-   
