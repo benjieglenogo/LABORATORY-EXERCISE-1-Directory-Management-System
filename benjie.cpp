@@ -59,14 +59,34 @@ void list_files_menu() {
             break;
         case 2:
             std::cout << "Listing files by extension is not yet implemented.\n";
-            // Add functionality to list files by extension
+            
             break;
         case 3:
             std::cout << "Listing files by name is not yet implemented.\n";
-            // Add functionality to list files by name
+            
             break;
         default:
             std::cout << "Invalid choice. Please try again.\n";
             break;
     }
+}
+  void list_all_files() {
+    int file_count = 0;
+
+    std::cout << "\nList of All Files:\n";
+
+    try {
+        for (const auto& entry : fs::directory_iterator(fs::current_path())) {
+            if (fs::is_regular_file(entry)) {
+                std::cout << entry.path().filename().string() << '\n';
+                file_count++;
+            }
+        }
+    } catch (const fs::filesystem_error& e) {
+        std::cerr << "Error: " << e.what() << '\n';
+    }
+
+    std::cout << "\nTotal Files: " << file_count << '\n';
+    std::cout << "Press any key to continue.";
+  
 }
