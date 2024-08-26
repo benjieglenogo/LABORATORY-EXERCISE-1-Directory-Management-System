@@ -90,3 +90,37 @@ void list_files_menu() {
     std::cout << "Press any key to continue.";
   
 }
+   void create_directory() {
+    std::string dir_name;
+    std::cout << "Enter the name of the new directory: ";
+    std::cin >> dir_name;
+
+    try {
+        if (fs::create_directory(dir_name)) {
+            std::cout << "Directory '" << dir_name << "' created successfully.\n";
+        } else {
+            std::cout << "Failed to create directory. It may already exist.\n";
+        }
+    } catch (const fs::filesystem_error& e) {
+        std::cerr << "Error: " << e.what() << '\n';
+    }
+
+    std::cout << "Press any key to continue.";
+   
+}
+
+void change_directory() {
+    std::string dir_path;
+    std::cout << "Enter the path of the new working directory: ";
+    std::cin >> dir_path;
+
+    try {
+        fs::current_path(dir_path);
+        std::cout << "Changed working directory to '" << fs::current_path().string() << "'.\n";
+    } catch (const fs::filesystem_error& e) {
+        std::cerr << "Error: " << e.what() << '\n';
+    }
+
+    std::cout << "Press any key to continue.";
+
+}
